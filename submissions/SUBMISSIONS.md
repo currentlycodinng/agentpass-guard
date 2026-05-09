@@ -7,6 +7,7 @@ Last verified: 2026-05-10.
 
 | Field | Value |
 |---|---|
+| **Colosseum project profile** | `https://arena.colosseum.org/projects/explore/agentpass-guard` |
 | Live demo | `https://currentlycodinng.github.io/agentpass-guard/` |
 | GitHub repo | `https://github.com/currentlycodinng/agentpass-guard` |
 | Pitch deck (Google Slides) | `https://docs.google.com/presentation/d/18eGCgYkq3uaEZ5zpnDfH_EPuLrDwhxyjiLDce4GCXw0/edit?usp=sharing` |
@@ -164,9 +165,8 @@ Yes
 ```
 
 ## Link to your Colosseum profile
-*(grab this from arena.colosseum.org after Colosseum submission goes through. Format will be like:)*
 ```
-https://arena.colosseum.org/projects/agentpass-guard
+https://arena.colosseum.org/projects/explore/agentpass-guard
 ```
 
 ## Link to your Loom / Demo Video
