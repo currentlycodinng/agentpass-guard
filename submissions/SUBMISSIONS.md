@@ -11,7 +11,12 @@ Last verified: 2026-05-10.
 | GitHub repo | `https://github.com/currentlycodinng/agentpass-guard` |
 | Pitch deck (Google Slides) | `https://docs.google.com/presentation/d/18eGCgYkq3uaEZ5zpnDfH_EPuLrDwhxyjiLDce4GCXw0/edit?usp=sharing` |
 | Pitch deck (PDF backup) | `https://currentlycodinng.github.io/agentpass-guard/deliverables/agentpass-guard-frontier-deck.pdf` |
-| Pitch video | `https://youtu.be/olA4Mg2w62c` |
+| Demo video (≤3 min, screen-only) | _(record from `docs/demo_video_script.md`)_ |
+| Pitch video (≤2 min, on camera) | _(record from `docs/pitch_video_script.md`)_ |
+| Logo (square, 1024 PNG) | `https://currentlycodinng.github.io/agentpass-guard/assets/logo/logo-square-1024.png` |
+| Logo (banner, 1600 PNG) | `https://currentlycodinng.github.io/agentpass-guard/assets/logo/logo-banner-dark-1600.png` |
+
+> ⚠️ **Two videos required, not one.** Colosseum asks for a separate demo (live product, no slides, no code, ≤3 min) and pitch (you on camera, intro + what + why-you, ≤2 min). The previous YouTube Short was an in-between hybrid — re-record both. Scripts ready in `docs/demo_video_script.md` and `docs/pitch_video_script.md`.
 
 ---
 
@@ -87,6 +92,37 @@ No
 Netherlands
 ```
 *Setting Netherlands here is required for both Superteam NL tracks below.*
+
+## Demo video
+*(YouTube / Loom / Vimeo · ≤3 min · live product, no slides, no code)*
+```
+(paste demo video URL once recorded — see docs/demo_video_script.md)
+```
+
+## Pitch video
+*(YouTube / Loom / Vimeo · ≤2 min · introduce yourselves, what you're building, why you)*
+```
+(paste pitch video URL once recorded — see docs/pitch_video_script.md)
+```
+
+## Live product link
+```
+https://currentlycodinng.github.io/agentpass-guard/
+```
+
+## Access instructions
+```
+No login or credentials required. Open the live product link in any browser, scroll to the "Live demo" section, and click any of the three action buttons (Allowed API call, Blocked tool, High-cost call) to see the policy decision and audit trail update in real time. Use "Reset demo" to clear receipts. The optional Solana devnet script (npm run devnet:demo) is in the GitHub repo and runs locally.
+```
+
+## Project logo
+```
+Upload: assets/logo/logo-square-1024.png  (or .jpg)
+        — 1024×1024, gradient AP mark on transparent background
+Or:     assets/logo/logo-banner-dark-1600.png
+        — 1600×800 wordmark banner, dark
+```
+*Files are in the GitHub repo at https://github.com/currentlycodinng/agentpass-guard/tree/main/assets/logo*
 
 ---
 
