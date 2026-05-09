@@ -8,570 +8,399 @@ pptx.subject = "Colosseum Frontier Hackathon Pitch";
 pptx.title = "AgentPass Guard";
 pptx.lang = "en-US";
 pptx.theme = {
-  headFontFace: "Aptos Display",
-  bodyFontFace: "Aptos",
+  headFontFace: "Inter",
+  bodyFontFace: "Inter",
   lang: "en-US"
 };
 
+// Palette aligned with the website (src/styles.css)
 const C = {
-  ink: "152033",
-  muted: "667085",
-  line: "D9E0EA",
-  bg: "F5F7FB",
-  panel: "FFFFFF",
-  teal: "0F766E",
-  tealLight: "CCFBF1",
-  blue: "2563EB",
-  blueLight: "DBEAFE",
-  amber: "B45309",
-  amberLight: "FEF3C7",
-  red: "B42318",
-  redLight: "FEE2E2",
+  ink: "0B1020",
+  inkSoft: "2B3556",
+  muted: "6B7393",
+  line: "E6E8F0",
+  lineStrong: "D2D7E3",
+  bg: "FFFFFF",
+  bgSoft: "F6F7FB",
+  brand: "14F195",
+  brand2: "9945FF",
+  brand3: "00D1FF",
   green: "047857",
-  dark: "101828"
+  greenSoft: "ECFDF5",
+  red: "B42318",
+  redSoft: "FEE2E2",
+  amber: "B45309",
+  amberSoft: "FEF3C7",
+  dark: "0B1020",
+  darkPanel: "131A36"
 };
 
-const SLIDE_W = 13.333;
-const SLIDE_H = 7.5;
+const W = 13.333;
+const H = 7.5;
+const MONO = "JetBrains Mono";
 
-function addBg(slide) {
-  slide.background = { color: C.bg };
-  slide.addShape(pptx.ShapeType.rect, {
-    x: 0,
-    y: 0,
-    w: SLIDE_W,
-    h: SLIDE_H,
-    fill: { color: C.bg },
-    line: { color: C.bg }
-  });
-}
+function bg(slide, color = C.bg) { slide.background = { color }; }
+function darkBg(slide) { slide.background = { color: C.dark }; }
 
-function addKicker(slide, text) {
-  slide.addText(text.toUpperCase(), {
-    x: 0.65,
-    y: 0.45,
-    w: 4.5,
-    h: 0.25,
-    fontSize: 8.5,
-    bold: true,
-    color: C.teal,
-    margin: 0
-  });
-}
-
-function addTitle(slide, text, y = 0.78, size = 34) {
-  slide.addText(text, {
-    x: 0.65,
-    y,
-    w: 7.6,
-    h: 0.75,
-    fontSize: size,
-    bold: true,
-    color: C.ink,
-    fit: "shrink",
-    margin: 0
-  });
-}
-
-function addFooter(slide) {
-  slide.addText("AgentPass Guard | Colosseum Frontier", {
-    x: 0.65,
-    y: 7.05,
-    w: 4.5,
-    h: 0.2,
-    fontSize: 7.5,
-    color: "8A94A6",
-    margin: 0
-  });
-}
-
-function addCard(slide, { x, y, w, h, title, body, color = C.teal, fill = C.panel }) {
+function brandMark(slide, x, y, dark = false) {
   slide.addShape(pptx.ShapeType.roundRect, {
-    x,
-    y,
-    w,
-    h,
-    rectRadius: 0.08,
-    fill: { color: fill },
-    line: { color: C.line, width: 1 }
+    x, y, w: 0.42, h: 0.42, rectRadius: 0.08,
+    fill: { color: C.brand }, line: { color: C.brand }
   });
-  slide.addShape(pptx.ShapeType.rect, {
-    x,
-    y,
-    w: 0.09,
-    h,
-    fill: { color },
-    line: { color }
-  });
-  slide.addText(title, {
-    x: x + 0.22,
-    y: y + 0.18,
-    w: w - 0.42,
-    h: 0.3,
-    fontSize: 14,
-    bold: true,
-    color: C.ink,
-    margin: 0
-  });
-  slide.addText(body, {
-    x: x + 0.22,
-    y: y + 0.58,
-    w: w - 0.42,
-    h: h - 0.75,
-    fontSize: 10.5,
-    color: C.muted,
-    breakLine: false,
-    fit: "shrink",
-    valign: "top",
-    margin: 0
-  });
-}
-
-function addBullets(slide, items, x, y, w, h, fontSize = 16) {
-  slide.addText(
-    items.map((item) => ({ text: item, options: { bullet: { indent: 12 }, hanging: 4 } })),
-    {
-      x,
-      y,
-      w,
-      h,
-      fontSize,
-      color: C.ink,
-      breakLine: false,
-      fit: "shrink",
-      margin: 0
-    }
-  );
-}
-
-function addFlowStep(slide, index, label, x, y, color = C.teal) {
   slide.addShape(pptx.ShapeType.roundRect, {
-    x,
-    y,
-    w: 2.25,
-    h: 1.0,
-    rectRadius: 0.08,
-    fill: { color: "FFFFFF" },
-    line: { color: C.line }
-  });
-  slide.addShape(pptx.ShapeType.ellipse, {
-    x: x + 0.18,
-    y: y + 0.25,
-    w: 0.5,
-    h: 0.5,
-    fill: { color },
-    line: { color }
-  });
-  slide.addText(String(index), {
-    x: x + 0.18,
-    y: y + 0.34,
-    w: 0.5,
-    h: 0.2,
-    fontSize: 10,
-    bold: true,
-    color: "FFFFFF",
-    align: "center",
-    margin: 0
-  });
-  slide.addText(label, {
-    x: x + 0.82,
-    y: y + 0.22,
-    w: 1.15,
-    h: 0.55,
-    fontSize: 12,
-    bold: true,
-    color: C.ink,
-    fit: "shrink",
-    margin: 0
-  });
-}
-
-function addArrow(slide, x, y) {
-  slide.addShape(pptx.ShapeType.line, {
-    x,
-    y,
-    w: 0.55,
-    h: 0,
-    line: { color: "94A3B8", width: 1.3, beginArrowType: "none", endArrowType: "triangle" }
-  });
-}
-
-function slide1() {
-  const slide = pptx.addSlide();
-  addBg(slide);
-  slide.addShape(pptx.ShapeType.rect, {
-    x: 0,
-    y: 0,
-    w: 4.25,
-    h: SLIDE_H,
-    fill: { color: C.dark },
-    line: { color: C.dark }
+    x: x + 0.08, y: y + 0.08, w: 0.32, h: 0.32, rectRadius: 0.06,
+    fill: { color: C.brand3 }, line: { color: C.brand3 }
   });
   slide.addText("AP", {
-    x: 0.72,
-    y: 0.78,
-    w: 0.85,
-    h: 0.6,
-    fontSize: 22,
-    bold: true,
-    color: "CCFBF1",
-    margin: 0
+    x, y, w: 0.42, h: 0.42, fontSize: 11, bold: true,
+    color: dark ? "FFFFFF" : "06140F", align: "center", valign: "middle",
+    fontFace: "Inter", margin: 0
   });
+}
+
+function topbar(slide, { dark = false, kicker = null, slideNumber = null, total = 8 } = {}) {
+  brandMark(slide, 0.6, 0.32, dark);
   slide.addText("AgentPass Guard", {
-    x: 0.72,
-    y: 2.15,
-    w: 3.05,
-    h: 0.9,
-    fontSize: 27,
-    bold: true,
-    color: "FFFFFF",
-    fit: "shrink",
-    margin: 0
+    x: 1.15, y: 0.32, w: 4, h: 0.42,
+    fontSize: 11, bold: true, fontFace: "Inter",
+    color: dark ? "FFFFFF" : C.ink, valign: "middle", margin: 0
   });
-  slide.addText("Policy simulator and guard layer for AI agents that pay for APIs on Solana.", {
-    x: 0.72,
-    y: 3.18,
-    w: 2.9,
-    h: 0.85,
-    fontSize: 17,
-    color: "D0D5DD",
-    fit: "shrink",
-    margin: 0
-  });
-  slide.addText("Test agent payment policies before real spend.", {
-    x: 5.1,
-    y: 2.1,
-    w: 6.9,
-    h: 1.35,
-    fontSize: 30,
-    bold: true,
-    color: C.ink,
-    fit: "shrink",
-    margin: 0
-  });
-  addCard(slide, {
-    x: 5.1,
-    y: 4.1,
-    w: 2.2,
-    h: 1.1,
-    title: "Budget",
-    body: "0.25 USDC daily cap",
-    color: C.teal,
-    fill: C.tealLight
-  });
-  addCard(slide, {
-    x: 7.65,
-    y: 4.1,
-    w: 2.2,
-    h: 1.1,
-    title: "Allowlist",
-    body: "Approved APIs only",
-    color: C.blue,
-    fill: C.blueLight
-  });
-  addCard(slide, {
-    x: 10.2,
-    y: 4.1,
-    w: 2.2,
-    h: 1.1,
-    title: "Receipts",
-    body: "Solana audit trail",
-    color: C.amber,
-    fill: C.amberLight
-  });
-  addFooter(slide);
+  if (kicker) {
+    slide.addText(kicker.toUpperCase(), {
+      x: 5.2, y: 0.32, w: 6, h: 0.42,
+      fontSize: 8.5, bold: true, fontFace: MONO, charSpacing: 1.5,
+      color: dark ? "98A3C7" : C.muted, valign: "middle", margin: 0
+    });
+  }
+  if (slideNumber) {
+    slide.addText(`${String(slideNumber).padStart(2, "0")} / ${String(total).padStart(2, "0")}`, {
+      x: W - 1.6, y: 0.32, w: 1, h: 0.42,
+      fontSize: 9, fontFace: MONO,
+      color: dark ? "98A3C7" : C.muted, align: "right", valign: "middle", margin: 0
+    });
+  }
 }
 
-function slide2() {
-  const slide = pptx.addSlide();
-  addBg(slide);
-  addKicker(slide, "The new problem");
-  addTitle(slide, "Agents can pay. Now humans need controls.");
-  addBullets(
-    slide,
-    [
-      "Agents can discover and pay for APIs through pay.sh/x402-style flows.",
-      "Unrestricted agent wallets are unsafe.",
-      "Manual approval for every tiny action breaks autonomy.",
-      "Builders need to test budget, allowlist, threshold, revocation, and receipts."
-    ],
-    0.8,
-    2.0,
-    5.5,
-    3.5,
-    17
-  );
-  addCard(slide, {
-    x: 7.15,
-    y: 1.8,
-    w: 4.7,
-    h: 3.7,
-    title: "The missing layer",
-    body:
-      "The payment rail is arriving. The trust layer is still missing. Before teams let agents spend real money, they need explicit spending rules and a clean audit trail.",
-    color: C.teal,
-    fill: "FFFFFF"
+function footer(slide, { dark = false } = {}) {
+  slide.addText("agentpass-guard · github.com/currentlycodinng/agentpass-guard", {
+    x: 0.6, y: 7.05, w: 8, h: 0.25,
+    fontSize: 8, fontFace: MONO,
+    color: dark ? "5B6594" : C.muted, valign: "middle", margin: 0
   });
-  addFooter(slide);
+  slide.addText("Colosseum Frontier · 2026", {
+    x: W - 5, y: 7.05, w: 4.4, h: 0.25,
+    fontSize: 8, fontFace: MONO,
+    color: dark ? "5B6594" : C.muted, align: "right", valign: "middle", margin: 0
+  });
 }
 
-function slide3() {
-  const slide = pptx.addSlide();
-  addBg(slide);
-  addKicker(slide, "Why now");
-  addTitle(slide, "Agent-paid APIs are becoming real.");
-  addCard(slide, {
-    x: 0.75,
-    y: 1.85,
-    w: 3.5,
-    h: 2.8,
-    title: "Pay-per-use APIs",
-    body: "pay.sh catalogs APIs that agents can call without accounts, keys, or subscriptions.",
-    color: C.blue,
-    fill: C.blueLight
+function bigTitle(slide, text, { x = 0.6, y = 1.8, w = 12.1, color = C.ink, size = 40 } = {}) {
+  slide.addText(text, {
+    x, y, w, h: 1.6,
+    fontSize: size, bold: true, fontFace: "Inter",
+    color, fit: "shrink", margin: 0, paraSpaceAfter: 0
   });
-  addCard(slide, {
-    x: 4.9,
-    y: 1.85,
-    w: 3.5,
-    h: 2.8,
-    title: "x402 primitives",
-    body: "HTTP 402 payment flows make machine-to-machine API payments natural.",
-    color: C.teal,
-    fill: C.tealLight
-  });
-  addCard(slide, {
-    x: 9.05,
-    y: 1.85,
-    w: 3.5,
-    h: 2.8,
-    title: "Solana settlement",
-    body: "Low fees and fast confirmation make tiny agent payments practical.",
-    color: C.amber,
-    fill: C.amberLight
-  });
-  slide.addText("The next layer is policy: what is this agent allowed to buy?", {
-    x: 1.2,
-    y: 5.55,
-    w: 10.9,
-    h: 0.5,
-    fontSize: 23,
-    bold: true,
-    color: C.ink,
-    align: "center",
-    margin: 0
-  });
-  addFooter(slide);
 }
 
-function slide4() {
-  const slide = pptx.addSlide();
-  addBg(slide);
-  addKicker(slide, "The product");
-  addTitle(slide, "A guardrail check before every paid action.");
-  addFlowStep(slide, 1, "Agent proposes paid API call", 0.8, 2.25, C.blue);
-  addArrow(slide, 3.13, 2.75);
-  addFlowStep(slide, 2, "AgentPass explains checks", 3.8, 2.25, C.teal);
-  addArrow(slide, 6.13, 2.75);
-  addFlowStep(slide, 3, "Solana payment settles", 6.8, 2.25, C.amber);
-  addArrow(slide, 9.13, 2.75);
-  addFlowStep(slide, 4, "Receipt logs decision", 9.8, 2.25, C.teal);
-  addCard(slide, {
-    x: 1.35,
-    y: 4.55,
-    w: 10.6,
-    h: 1.1,
-    title: "Inside policy: auto-pay. Outside policy: block or ask.",
-    body: "AgentPass Guard lets builders simulate and enforce the policy around pay.sh/x402-style payments.",
-    color: C.dark,
-    fill: "FFFFFF"
+function lead(slide, text, { x = 0.6, y = 3.2, w = 11, color = C.inkSoft, size = 16 } = {}) {
+  slide.addText(text, {
+    x, y, w, h: 1.0, fontSize: size, fontFace: "Inter",
+    color, fit: "shrink", margin: 0
   });
-  addFooter(slide);
 }
 
-function slide5() {
-  const slide = pptx.addSlide();
-  addBg(slide);
-  addKicker(slide, "Demo");
-  addTitle(slide, "Three decisions judges can inspect.");
-  addCard(slide, {
-    x: 0.8,
-    y: 1.85,
-    w: 3.65,
-    h: 3.4,
-    title: "Approved",
-    body: "Research API call costs 0.008 USDC. Guardrail checks pass, the service is allowlisted, and a receipt is logged.",
-    color: C.green,
-    fill: "ECFDF5"
-  });
-  addCard(slide, {
-    x: 4.85,
-    y: 1.85,
-    w: 3.65,
-    h: 3.4,
-    title: "Blocked",
-    body: "Unapproved scraping API fails the allowlist check. AgentPass blocks before settlement.",
-    color: C.red,
-    fill: C.redLight
-  });
-  addCard(slide, {
-    x: 8.9,
-    y: 1.85,
-    w: 3.65,
-    h: 3.4,
-    title: "Needs approval",
-    body: "BigQuery call is allowed, but 0.075 USDC fails the auto-approval threshold and pauses.",
-    color: C.amber,
-    fill: C.amberLight
-  });
-  addFooter(slide);
+function gradientBand(slide, y) {
+  const segW = 4.0;
+  slide.addShape(pptx.ShapeType.rect, { x: 0.6, y, w: segW, h: 0.06, fill: { color: C.brand }, line: { color: C.brand } });
+  slide.addShape(pptx.ShapeType.rect, { x: 0.6 + segW, y, w: segW, h: 0.06, fill: { color: C.brand3 }, line: { color: C.brand3 } });
+  slide.addShape(pptx.ShapeType.rect, { x: 0.6 + segW * 2, y, w: segW, h: 0.06, fill: { color: C.brand2 }, line: { color: C.brand2 } });
 }
 
-function slide6() {
-  const slide = pptx.addSlide();
-  addBg(slide);
-  addKicker(slide, "Why Solana");
-  addTitle(slide, "Agent payments are small, frequent, and need receipts.");
-  addBullets(
-    slide,
-    [
-      "Fast settlement keeps agent workflows interactive.",
-      "Low fees make tiny API payments economically viable.",
-      "Wallet-native identities map cleanly to agents.",
-      "Transactions and memos create an inspectable receipt path."
-    ],
-    0.85,
-    1.8,
-    5.7,
-    3.3,
-    17
-  );
-  addCard(slide, {
-    x: 7.15,
-    y: 1.75,
-    w: 4.7,
-    h: 3.4,
-    title: "Devnet proof path",
-    body:
-      "The repo includes an optional script that creates a temporary devnet wallet, sends a tiny payment, attaches memo receipt metadata, and prints an explorer link.",
-    color: C.teal,
-    fill: "FFFFFF"
+function card(slide, { x, y, w, h, kicker, title, body, accent = C.ink, fill = C.bg, kickerFont = MONO, titleColor = C.ink, bodyColor = C.inkSoft }) {
+  slide.addShape(pptx.ShapeType.roundRect, {
+    x, y, w, h, rectRadius: 0.08,
+    fill: { color: fill }, line: { color: C.line, width: 0.75 }
   });
-  addFooter(slide);
+  if (kicker) {
+    slide.addText(kicker.toUpperCase(), {
+      x: x + 0.32, y: y + 0.28, w: w - 0.6, h: 0.28,
+      fontSize: 8.5, bold: true, fontFace: kickerFont, charSpacing: 2,
+      color: accent, margin: 0
+    });
+  }
+  slide.addText(title, {
+    x: x + 0.32, y: y + (kicker ? 0.62 : 0.32), w: w - 0.6, h: 0.6,
+    fontSize: 18, bold: true, fontFace: "Inter",
+    color: titleColor, fit: "shrink", margin: 0
+  });
+  slide.addText(body, {
+    x: x + 0.32, y: y + (kicker ? 1.25 : 0.95), w: w - 0.6, h: h - (kicker ? 1.45 : 1.15),
+    fontSize: 12, fontFace: "Inter", color: bodyColor,
+    valign: "top", margin: 0, paraSpaceAfter: 4
+  });
 }
 
-function slide7() {
-  const slide = pptx.addSlide();
-  addBg(slide);
-  addKicker(slide, "MVP built");
-  addTitle(slide, "Narrow enough to ship. Clear enough to judge.");
-  addCard(slide, {
-    x: 0.8,
-    y: 1.8,
-    w: 2.9,
-    h: 2.6,
-    title: "Policy editor",
-    body: "Budget, allowlist, threshold, expiry, revocation.",
-    color: C.teal,
-    fill: C.tealLight
+function bullets(slide, items, { x, y, w, size = 14, color = C.ink, accent = C.brand2 } = {}) {
+  const lineH = 0.45;
+  items.forEach((text, i) => {
+    const iy = y + i * lineH;
+    slide.addShape(pptx.ShapeType.ellipse, {
+      x, y: iy + 0.16, w: 0.14, h: 0.14,
+      fill: { color: accent }, line: { color: accent }
+    });
+    slide.addText(text, {
+      x: x + 0.32, y: iy, w: w - 0.32, h: lineH,
+      fontSize: size, fontFace: "Inter", color, valign: "top", margin: 0
+    });
   });
-  addCard(slide, {
-    x: 4.0,
-    y: 1.8,
-    w: 2.9,
-    h: 2.6,
-    title: "Agent runner",
-    body: "Scripted paid actions for approved, blocked, and approval-needed cases.",
-    color: C.blue,
-    fill: C.blueLight
-  });
-  addCard(slide, {
-    x: 7.2,
-    y: 1.8,
-    w: 2.9,
-    h: 2.6,
-    title: "Receipts",
-    body: "Decision log with amount, service, status, receipt hash, and JSON export.",
-    color: C.amber,
-    fill: C.amberLight
-  });
-  addCard(slide, {
-    x: 10.4,
-    y: 1.8,
-    w: 2.1,
-    h: 2.6,
-    title: "Policy export",
-    body: "JSON policy and receipt exports for builder testing.",
-    color: C.dark,
-    fill: "FFFFFF"
-  });
-  slide.addText("Built as a static app so judges can run it quickly and inspect the code.", {
-    x: 1.1,
-    y: 5.55,
-    w: 11.0,
-    h: 0.45,
-    fontSize: 20,
-    bold: true,
-    color: C.ink,
-    align: "center",
-    margin: 0
-  });
-  addFooter(slide);
 }
 
-function slide8() {
+function s1_cover() {
   const slide = pptx.addSlide();
-  addBg(slide);
-  addKicker(slide, "Path after Frontier");
-  addTitle(slide, "From local simulator to production guardrail.");
-  addBullets(
-    slide,
-    [
-      "Start with AI builders and student teams using pay-per-use APIs.",
-      "Add SPL USDC settlement and pay.sh/x402 request parsing.",
-      "Add team approval workflows, alerts, and spend analytics.",
-      "Move policy checks into wallet middleware or server-side authorization."
-    ],
-    0.85,
-    1.75,
-    6.0,
-    3.65,
-    17
-  );
-  addCard(slide, {
-    x: 7.45,
-    y: 1.75,
-    w: 4.6,
-    h: 3.65,
-    title: "Why this can win",
-    body:
-      "The problem is current, the demo is concrete, the Solana integration is real, and the wedge does not fight the ecosystem. It completes it.",
-    color: C.teal,
-    fill: "FFFFFF"
-  });
+  darkBg(slide);
+  slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: W, h: H, fill: { color: C.dark }, line: { color: C.dark } });
+  slide.addShape(pptx.ShapeType.ellipse, { x: -2, y: -2, w: 8, h: 8, fill: { color: "1A2244", transparency: 50 }, line: { color: "1A2244" } });
+  slide.addShape(pptx.ShapeType.ellipse, { x: 7, y: 3, w: 8, h: 8, fill: { color: "20184D", transparency: 60 }, line: { color: "20184D" } });
+
+  brandMark(slide, 0.6, 0.55, true);
   slide.addText("AgentPass Guard", {
-    x: 0.85,
-    y: 6.15,
-    w: 4.0,
-    h: 0.35,
-    fontSize: 20,
-    bold: true,
-    color: C.teal,
-    margin: 0
+    x: 1.2, y: 0.55, w: 6, h: 0.5,
+    fontSize: 14, bold: true, fontFace: "Inter", color: "FFFFFF", valign: "middle", margin: 0
   });
-  addFooter(slide);
+  slide.addText("COLOSSEUM FRONTIER · AI × SOLANA", {
+    x: W - 5.5, y: 0.55, w: 4.9, h: 0.5,
+    fontSize: 9, bold: true, fontFace: MONO, charSpacing: 2,
+    color: "98A3C7", align: "right", valign: "middle", margin: 0
+  });
+
+  slide.addText("Agents can now pay.", {
+    x: 0.7, y: 2.4, w: 12, h: 1.3,
+    fontSize: 56, bold: true, fontFace: "Inter", color: "FFFFFF", margin: 0
+  });
+  slide.addText([
+    { text: "You decide ", options: { color: "E6E8F5", fontFace: "Inter", bold: true } },
+    { text: "what", options: { color: "FFFFFF", fontFace: "Instrument Serif", italic: true, bold: false } },
+    { text: " they're allowed to buy.", options: { color: "E6E8F5", fontFace: "Inter", bold: true } }
+  ], { x: 0.7, y: 3.5, w: 12, h: 1.3, fontSize: 56, margin: 0 });
+
+  slide.addText(
+    "Policy simulator and guard layer for AI agents using pay.sh / x402-style payments on Solana.",
+    { x: 0.7, y: 5.05, w: 9.5, h: 0.7, fontSize: 17, fontFace: "Inter", color: "CBD1EA", margin: 0 }
+  );
+
+  slide.addShape(pptx.ShapeType.roundRect, {
+    x: 0.7, y: 5.95, w: 2.6, h: 0.55, rectRadius: 0.27,
+    fill: { color: C.brand }, line: { color: C.brand }
+  });
+  slide.addText("Run the demo →", {
+    x: 0.7, y: 5.95, w: 2.6, h: 0.55,
+    fontSize: 13, bold: true, fontFace: "Inter",
+    color: "06140F", align: "center", valign: "middle", margin: 0
+  });
+
+  slide.addText("github.com/currentlycodinng/agentpass-guard", {
+    x: 3.5, y: 5.95, w: 6, h: 0.55,
+    fontSize: 11, fontFace: MONO, color: "98A3C7", valign: "middle", margin: 0
+  });
+
+  slide.addShape(pptx.ShapeType.rect, { x: 0.7, y: 6.95, w: 1.2, h: 0.05, fill: { color: C.brand }, line: { color: C.brand } });
+  slide.addShape(pptx.ShapeType.rect, { x: 1.9, y: 6.95, w: 1.2, h: 0.05, fill: { color: C.brand3 }, line: { color: C.brand3 } });
+  slide.addShape(pptx.ShapeType.rect, { x: 3.1, y: 6.95, w: 1.2, h: 0.05, fill: { color: C.brand2 }, line: { color: C.brand2 } });
 }
 
-[
-  slide1,
-  slide2,
-  slide3,
-  slide4,
-  slide5,
-  slide6,
-  slide7,
-  slide8
-].forEach((makeSlide) => makeSlide());
+function s2_problem() {
+  const slide = pptx.addSlide();
+  bg(slide);
+  topbar(slide, { kicker: "The new problem", slideNumber: 2 });
+  bigTitle(slide, "Agents can pay. Now humans need controls.", { y: 1.4, size: 40 });
+  lead(slide,
+    "AI agents are moving from chat to execution — they search, write code, call tools, and now pay for APIs. The unsolved problem is the next one.",
+    { y: 3.0, size: 16 }
+  );
+  bullets(slide, [
+    "Pay.sh and x402 unlock agent-paid APIs on Solana.",
+    "Unrestricted agent wallets are unsafe.",
+    "Manual approval for every micro-payment kills autonomy.",
+    "Builders need to test budget, allowlist, threshold, and revocation before live spend."
+  ], { x: 0.65, y: 4.15, w: 7.4, size: 13.5 });
+  card(slide, {
+    x: 8.45, y: 4.0, w: 4.3, h: 2.6,
+    kicker: "The missing layer",
+    title: "Trust, before settlement.",
+    body: "The payment rail is arriving. The control plane on top of it is still thin. AgentPass Guard is that control plane.",
+    accent: C.brand2, fill: C.bgSoft
+  });
+  footer(slide);
+}
+
+function s3_whyNow() {
+  const slide = pptx.addSlide();
+  bg(slide);
+  topbar(slide, { kicker: "Why now", slideNumber: 3 });
+  bigTitle(slide, "Agent-paid APIs are becoming real.", { y: 1.4, size: 40 });
+  slide.addText("The next layer is policy:  what is this agent allowed to buy?", {
+    x: 0.6, y: 2.55, w: 12.1, h: 0.6,
+    fontSize: 18, bold: true, fontFace: "Inter", color: C.inkSoft, margin: 0
+  });
+  card(slide, { x: 0.6, y: 3.4, w: 4.0, h: 3.0, kicker: "Pay-per-use APIs", title: "pay.sh", body: "Catalogs APIs that agents can call without accounts, keys, or subscriptions.", accent: C.brand3 });
+  card(slide, { x: 4.75, y: 3.4, w: 4.0, h: 3.0, kicker: "HTTP 402 primitive", title: "x402", body: "Native machine-to-machine payment flow. Agents see a price, pay, and proceed.", accent: C.brand2 });
+  card(slide, { x: 8.9, y: 3.4, w: 3.8, h: 3.0, kicker: "Settlement", title: "Solana", body: "Low fees and fast confirmation make tiny, frequent agent payments practical.", accent: C.green });
+  footer(slide);
+}
+
+function s4_product() {
+  const slide = pptx.addSlide();
+  bg(slide);
+  topbar(slide, { kicker: "The product", slideNumber: 4 });
+  bigTitle(slide, "A guardrail check before every paid action.", { y: 1.4, size: 36 });
+
+  const steps = [
+    { n: "01", t: "Agent proposes paid call", c: C.brand3 },
+    { n: "02", t: "Policy evaluates & explains", c: C.brand2 },
+    { n: "03", t: "Solana payment settles", c: C.brand },
+    { n: "04", t: "Receipt logs decision", c: C.amber }
+  ];
+  const stepW = 2.85;
+  const gap = 0.2;
+  const totalW = stepW * 4 + gap * 3;
+  const startX = (W - totalW) / 2;
+  const sy = 3.1;
+
+  steps.forEach((step, i) => {
+    const sx = startX + i * (stepW + gap);
+    slide.addShape(pptx.ShapeType.roundRect, {
+      x: sx, y: sy, w: stepW, h: 1.6, rectRadius: 0.08,
+      fill: { color: C.bg }, line: { color: C.line, width: 0.75 }
+    });
+    slide.addText(step.n, {
+      x: sx + 0.3, y: sy + 0.3, w: 1.2, h: 0.3,
+      fontSize: 9.5, bold: true, fontFace: MONO, charSpacing: 1.5,
+      color: step.c, margin: 0
+    });
+    slide.addText(step.t, {
+      x: sx + 0.3, y: sy + 0.7, w: stepW - 0.5, h: 0.7,
+      fontSize: 13, bold: true, fontFace: "Inter",
+      color: C.ink, fit: "shrink", margin: 0
+    });
+    if (i < 3) {
+      slide.addShape(pptx.ShapeType.line, {
+        x: sx + stepW, y: sy + 0.8, w: gap, h: 0,
+        line: { color: C.lineStrong, width: 1.2, endArrowType: "triangle" }
+      });
+    }
+  });
+
+  slide.addText("Inside policy: auto-pay.   Outside policy: block, or pause for a human.", {
+    x: 0.6, y: 5.1, w: 12.1, h: 0.6,
+    fontSize: 17, bold: true, fontFace: "Inter",
+    color: C.inkSoft, align: "center", margin: 0
+  });
+  gradientBand(slide, 6.05);
+  footer(slide);
+}
+
+function s5_demo() {
+  const slide = pptx.addSlide();
+  bg(slide);
+  topbar(slide, { kicker: "Live demo", slideNumber: 5 });
+  bigTitle(slide, "Three decisions judges can inspect.", { y: 1.4, size: 36 });
+  lead(slide,
+    "One scripted research agent. One human policy. Three actions, three different outcomes — each with the exact guardrail trace.",
+    { y: 2.85, size: 14 }
+  );
+  card(slide, { x: 0.6, y: 4.0, w: 4.0, h: 2.7, kicker: "Should approve", title: "0.008 USDC research call", body: "Allowlisted, under threshold, inside budget. Auto-approves and writes a receipt.", accent: C.green, fill: C.greenSoft });
+  card(slide, { x: 4.75, y: 4.0, w: 4.0, h: 2.7, kicker: "Should block", title: "Unapproved scraping vendor", body: "Allowlist check fails. Blocked before settlement. Zero lamports leave the wallet.", accent: C.red, fill: C.redSoft });
+  card(slide, { x: 8.9, y: 4.0, w: 3.8, h: 2.7, kicker: "Needs approval", title: "0.075 USDC BigQuery call", body: "Allowlisted but above the 0.02 USDC threshold. Pauses for human approval.", accent: C.amber, fill: C.amberSoft });
+  footer(slide);
+}
+
+function s6_solana() {
+  const slide = pptx.addSlide();
+  darkBg(slide);
+  slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: W, h: H, fill: { color: C.dark }, line: { color: C.dark } });
+  slide.addShape(pptx.ShapeType.ellipse, { x: 8, y: -2, w: 8, h: 8, fill: { color: "1A2244", transparency: 50 }, line: { color: "1A2244" } });
+  topbar(slide, { dark: true, kicker: "Why Solana", slideNumber: 6 });
+  bigTitle(slide, "Small, frequent, programmatic — with receipts.", { y: 1.4, size: 36, color: "FFFFFF" });
+  bullets(slide, [
+    "Fast confirmation keeps agent workflows interactive.",
+    "Low fees make sub-cent API payments economically viable.",
+    "Wallet-native identities map cleanly to autonomous agents.",
+    "Memo program turns each settlement into an inspectable receipt."
+  ], { x: 0.65, y: 3.0, w: 7.0, size: 14, color: "E6E8F5", accent: C.brand });
+  card(slide, {
+    x: 8.0, y: 2.85, w: 4.7, h: 3.7,
+    kicker: "Devnet proof",
+    title: "$ npm run devnet:demo",
+    body: "Creates a temp wallet, sends a tiny payment, attaches a Memo-program receipt, prints an explorer link. Falls back to a simulated receipt if the public faucet is rate-limited.",
+    accent: C.brand, fill: C.darkPanel,
+    titleColor: C.brand, bodyColor: "CBD1EA", kickerFont: MONO
+  });
+  footer(slide, { dark: true });
+}
+
+function s7_built() {
+  const slide = pptx.addSlide();
+  bg(slide);
+  topbar(slide, { kicker: "Built so far", slideNumber: 7 });
+  bigTitle(slide, "Narrow enough to ship. Clear enough to judge.", { y: 1.4, size: 36 });
+  const items = [
+    { k: "01", t: "Policy editor", b: "Budget, allowlist, threshold, expiry, revocation." },
+    { k: "02", t: "Agent runner", b: "Three scripted paid actions: approve / block / pause." },
+    { k: "03", t: "Receipts log", b: "Every decision, every amount, every status, exportable JSON." },
+    { k: "04", t: "Devnet path", b: "Optional Solana settlement with Memo-program receipts." }
+  ];
+  const cardW = 2.95;
+  const gap = 0.18;
+  const startX = 0.6;
+  items.forEach((it, i) => {
+    card(slide, {
+      x: startX + i * (cardW + gap), y: 3.1, w: cardW, h: 3.2,
+      kicker: it.k, title: it.t, body: it.b,
+      accent: i === 1 ? C.brand2 : i === 0 ? C.brand3 : i === 2 ? C.amber : C.green,
+      fill: C.bgSoft
+    });
+  });
+  slide.addText("Static web app. No backend. Judges can run it in 30 seconds.", {
+    x: 0.6, y: 6.45, w: 12.1, h: 0.5,
+    fontSize: 14, bold: true, fontFace: "Inter",
+    color: C.inkSoft, align: "center", margin: 0
+  });
+  footer(slide);
+}
+
+function s8_path() {
+  const slide = pptx.addSlide();
+  bg(slide);
+  topbar(slide, { kicker: "Path after Frontier", slideNumber: 8 });
+  bigTitle(slide, "From local simulator to production guardrail.", { y: 1.4, size: 36 });
+  bullets(slide, [
+    "Land with AI builders and student teams using paid APIs.",
+    "Add SPL USDC settlement and pay.sh / x402 request parsing.",
+    "Add team approval workflows, anomaly alerts, and spend analytics.",
+    "Move policy checks into wallet middleware and server-side authorization."
+  ], { x: 0.65, y: 3.0, w: 7.2, size: 14, accent: C.brand2 });
+  card(slide, {
+    x: 8.0, y: 2.85, w: 4.7, h: 3.7,
+    kicker: "Why this can win",
+    title: "Completes the rail.",
+    body: "The problem is current. The demo is concrete. The Solana integration is real. The wedge does not fight the ecosystem — it completes it.",
+    accent: C.brand2, fill: C.bgSoft
+  });
+  gradientBand(slide, 6.6);
+  slide.addText("AgentPass Guard", {
+    x: 0.6, y: 6.05, w: 6, h: 0.45,
+    fontSize: 16, bold: true, fontFace: "Inter",
+    color: C.ink, valign: "middle", margin: 0
+  });
+  slide.addText("github.com/currentlycodinng/agentpass-guard", {
+    x: W - 7, y: 6.05, w: 6.4, h: 0.45,
+    fontSize: 11, fontFace: MONO, color: C.muted,
+    align: "right", valign: "middle", margin: 0
+  });
+  footer(slide);
+}
+
+[s1_cover, s2_problem, s3_whyNow, s4_product, s5_demo, s6_solana, s7_built, s8_path].forEach((fn) => fn());
 
 const out = "deliverables/agentpass-guard-frontier-deck.pptx";
 await pptx.writeFile({ fileName: out });

@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./src/styles.css" />
@@ -34,19 +34,25 @@
     <main id="top">
       <section class="hero">
         <div class="hero-inner">
-          <span class="pill">Colosseum Frontier · AI × Solana</span>
+          <span class="pill">
+            <span class="pill-dot"></span>
+            Colosseum Frontier · AI × Solana
+          </span>
           <h1 class="hero-title">
             Agents can now pay.<br />
-            <span class="grad">You decide what they're allowed to buy.</span>
+            <span class="grad">You decide <em>what</em> they're<br/>allowed to buy.</span>
           </h1>
           <p class="hero-sub">
             AgentPass Guard is a policy simulator and guard layer for AI agents using
             pay.sh / x402-style payments on Solana. Set the budget, the allowlist, the
-            approval threshold — then watch every paid action get checked against your
-            rules before a lamport leaves the wallet.
+            approval threshold — every paid action gets checked against your rules
+            before a lamport leaves the wallet.
           </p>
           <div class="hero-cta">
-            <a class="cta-button primary" href="#demo">Run the demo →</a>
+            <a class="cta-button primary" href="#demo">
+              Run the demo
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
             <a class="cta-button ghost" href="#how">See the wedge</a>
           </div>
           <div class="hero-stats">
@@ -56,6 +62,24 @@
           </div>
         </div>
         <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-grid" aria-hidden="true"></div>
+      </section>
+
+      <section class="marquee" aria-label="Stack">
+        <div class="marquee-track">
+          <span>Pay.sh</span><span>·</span>
+          <span>x402</span><span>·</span>
+          <span>Solana</span><span>·</span>
+          <span>USDC</span><span>·</span>
+          <span>Memo program</span><span>·</span>
+          <span>Devnet receipts</span><span>·</span>
+          <span>Pay.sh</span><span>·</span>
+          <span>x402</span><span>·</span>
+          <span>Solana</span><span>·</span>
+          <span>USDC</span><span>·</span>
+          <span>Memo program</span><span>·</span>
+          <span>Devnet receipts</span>
+        </div>
       </section>
 
       <section class="how" id="how">
@@ -66,16 +90,25 @@
         <div class="how-grid">
           <article class="how-card">
             <span class="how-num">01</span>
+            <div class="how-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
             <h3>Without a policy layer</h3>
             <p>You either approve every micro-payment by hand, or hand the agent unlimited wallet access. Neither scales.</p>
           </article>
           <article class="how-card highlight">
             <span class="how-num">02</span>
+            <div class="how-icon brand" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
             <h3>With AgentPass Guard</h3>
             <p>A human-defined pass: budget, allowlist, threshold, expiry, revocation. Every paid call is evaluated and explained before settlement.</p>
           </article>
           <article class="how-card">
             <span class="how-num">03</span>
+            <div class="how-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
             <h3>On Solana</h3>
             <p>Approved actions settle on devnet with a Memo-program receipt. Cheap, fast, inspectable — the right rail for agent payments.</p>
           </article>
