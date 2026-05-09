@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AgentPass Guard — Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:#0B1020; --ink-soft:#2B3556; --muted:#6B7393;
+    --line:#E6E8F0; --line-strong:#D2D7E3;
+    --bg:#fff; --bg-soft:#F6F7FB;
+    --brand:#14F195; --brand2:#9945FF; --brand3:#00D1FF;
+    --green:#047857; --green-soft:#ECFDF5;
+    --red:#B42318; --red-soft:#FEE2E2;
+    --amber:#B45309; --amber-soft:#FEF3C7;
+    --dark:#0B1020; --dark-panel:#131A36;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #f0f0f0; font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","cv11","tnum"; font-variant-numeric: tabular-nums; }
+
+  @page { size: 13.333in 7.5in; margin: 0; }
+  @media print {
+    html, body { background: #fff; }
+    .slide { page-break-after: always; box-shadow: none !important; margin: 0 !important; }
+    .slide:last-child { page-break-after: auto; }
+  }
+
+  .slide {
+    width: 13.333in; height: 7.5in;
+    position: relative; overflow: hidden;
+    background: #fff; color: var(--ink);
+    margin: 0.4in auto;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  }
+
+  /* Top chrome */
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 0.55in;
+    display: flex; align-items: center; padding: 0 0.6in;
+    font-size: 11pt; gap: 0.2in;
+  }
+  .brand-mark {
+    display: inline-grid; place-items: center;
+    width: 0.42in; height: 0.42in; border-radius: 0.08in;
+    background: linear-gradient(135deg, var(--brand), var(--brand3) 60%, var(--brand2));
+    color: #06140F; font-weight: 800; font-size: 9.5pt;
+  }
+  .brand-name { font-weight: 700; font-size: 11pt; }
+  .topbar .kicker {
+    font-family: "JetBrains Mono", monospace; font-size: 8.5pt; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+    margin-left: 0.3in;
+  }
+  .topbar .num {
+    font-family: "JetBrains Mono", monospace; font-size: 9pt;
+    margin-left: auto; color: var(--muted);
+  }
+  .topbar.dark .brand-name { color: #fff; }
+  .topbar.dark .kicker, .topbar.dark .num { color: #98A3C7; }
+
+  /* Footer */
+  .foot {
+    position: absolute; bottom: 0.3in; left: 0.6in; right: 0.6in;
+    display: flex; justify-content: space-between;
+    font-family: "JetBrains Mono", monospace; font-size: 7.5pt;
+    color: var(--muted);
+  }
+  .slide.dark .foot { color: #5B6594; }
+
+  /* Common */
+  .body {
+    padding: 1.05in 0.6in 0.7in;
+    height: 100%;
+    display: flex; flex-direction: column;
+  }
+  h1.title {
+    font-size: 38pt; line-height: 1.05; letter-spacing: -0.025em;
+    font-weight: 800; color: var(--ink); max-width: 11in;
+  }
+  h2.cap-title {
+    font-size: 26pt; line-height: 1.15; letter-spacing: -0.02em;
+    font-weight: 800; color: var(--ink); margin-top: 0.06in;
+  }
+  .cap-kicker {
+    font-family: "JetBrains Mono", monospace; font-size: 8.5pt; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+  p.lead { font-size: 14pt; line-height: 1.55; color: var(--ink-soft); margin-top: 0.18in; max-width: 9in; }
+  ul.bullets { list-style: none; display: grid; gap: 0.16in; margin-top: 0.3in; }
+  ul.bullets li {
+    position: relative; padding-left: 0.36in;
+    font-size: 13pt; line-height: 1.5; color: var(--ink); max-width: 8.5in;
+  }
+  ul.bullets li::before {
+    content: ""; position: absolute; left: 0; top: 0.13in;
+    width: 0.13in; height: 0.13in; border-radius: 999px;
+    background: var(--brand2);
+  }
+  .slide.dark ul.bullets li { color: #E6E8F5; }
+  .slide.dark ul.bullets li::before { background: var(--brand); }
+
+  .grad-band { display: flex; height: 0.06in; }
+  .grad-band > div { flex: 1; }
+  .grad-band > div:nth-child(1) { background: var(--brand); }
+  .grad-band > div:nth-child(2) { background: var(--brand3); }
+  .grad-band > div:nth-child(3) { background: var(--brand2); }
+
+  /* Image frame */
+  .frame {
+    border-radius: 0.12in; overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 50px rgba(11,16,32,0.10), 0 1px 2px rgba(11,16,32,0.05);
+    background: #fff;
+  }
+  .frame img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+  /* ===== Slide 1: Cover ===== */
+  .slide.cover { background: var(--dark); color: #fff; overflow: hidden; }
+  .slide.cover::before {
+    content: ""; position: absolute; inset: -10% -10% auto auto;
+    width: 70%; height: 80%;
+    background:
+      radial-gradient(closest-side, rgba(0,209,255,0.18), transparent 70%),
+      radial-gradient(closest-side at 30% 60%, rgba(153,69,255,0.22), transparent 65%);
+    filter: blur(40px);
+  }
+  .slide.cover::after {
+    content: ""; position: absolute; inset: 30% -20% -20% auto;
+    width: 60%; height: 70%;
+    background: radial-gradient(closest-side, rgba(20,241,149,0.15), transparent 70%);
+    filter: blur(40px);
+  }
+  .cover .body { position: relative; z-index: 1; padding: 0.55in 0.7in; }
+  .cover .topbar .brand-name { color: #fff; }
+  .cover .pill {
+    display: inline-flex; align-items: center; gap: 0.08in;
+    padding: 0.06in 0.16in; border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px; background: rgba(255,255,255,0.04);
+    font-family: "JetBrains Mono", monospace; font-size: 8.5pt; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #98A3C7; margin-top: 1.4in;
+    width: max-content;
+  }
+  .cover .pill .dot { width: 0.07in; height: 0.07in; background: var(--brand); border-radius: 999px; box-shadow: 0 0 0 3px rgba(20,241,149,0.18); }
+  .cover h1.hero {
+    font-size: 60pt; line-height: 1.02; letter-spacing: -0.035em;
+    font-weight: 800; color: #fff; margin-top: 0.25in; max-width: 13in;
+  }
+  .cover h1.hero .grad {
+    background: linear-gradient(120deg, #9945FF 0%, #00D1FF 45%, #14F195 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .cover h1.hero em {
+    font-family: "Instrument Serif", Georgia, serif; font-style: italic;
+    font-weight: 400; letter-spacing: -0.01em;
+  }
+  .cover .sub {
+    color: #CBD1EA; font-size: 15pt; line-height: 1.5;
+    margin-top: 0.35in; max-width: 9in;
+  }
+  .cover .cta-row {
+    display: flex; align-items: center; gap: 0.25in;
+    margin-top: 0.5in;
+  }
+  .cover .cta {
+    display: inline-flex; align-items: center; gap: 0.1in;
+    padding: 0.16in 0.32in; border-radius: 999px;
+    background: linear-gradient(135deg, var(--brand), var(--brand3));
+    color: #06140F; font-weight: 700; font-size: 12pt;
+    box-shadow: 0 10px 26px rgba(20,241,149,0.35);
+  }
+  .cover .url {
+    font-family: "JetBrains Mono", monospace; font-size: 11pt; color: #98A3C7;
+  }
+  .cover .grad-band { position: absolute; bottom: 0; left: 0; right: 0; }
+
+  /* ===== Slide 2: Problem ===== */
+  .problem .body { display: grid; grid-template-rows: auto auto 1fr; }
+  .problem .lead { margin-bottom: 0.25in; }
+
+  /* ===== Slide 3,4,7: Image-led ===== */
+  .imgled .frame { flex: 1; margin-top: 0.3in; max-height: 5in; }
+
+  /* ===== Slide 5: Three decisions ===== */
+  .three .body { display: grid; grid-template-rows: auto auto 1fr; gap: 0.2in; }
+  .three .grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.18in;
+  }
+  .three .col { display: grid; gap: 0.1in; }
+  .three .col .frame { height: 3.4in; }
+  .three .col .frame img { object-fit: cover; object-position: center; }
+  .three .col .label { padding-top: 0.05in; }
+  .three .col .label-kicker {
+    font-family: "JetBrains Mono", monospace; font-size: 8.5pt; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .three .col .label-title { font-size: 14pt; font-weight: 700; margin-top: 0.05in; }
+  .col.green .label-kicker { color: var(--green); }
+  .col.red .label-kicker { color: var(--red); }
+  .col.amber .label-kicker { color: var(--amber); }
+
+  /* ===== Slide 6: Why Solana ===== */
+  .solana { background: var(--dark); color: #fff; overflow: hidden; }
+  .solana .topbar .brand-name { color: #fff; }
+  .solana::before {
+    content: ""; position: absolute; right: -10%; top: -10%;
+    width: 60%; height: 70%;
+    background: radial-gradient(closest-side, rgba(20,241,149,0.12), transparent 70%);
+    filter: blur(40px);
+  }
+  .solana .body { position: relative; z-index: 1; }
+  .solana h1.title { color: #fff; max-width: 7.5in; }
+  .solana .row { display: grid; grid-template-columns: 7in 5in; gap: 0.3in; margin-top: 0.3in; flex: 1; }
+  .solana .code-card {
+    background: var(--dark-panel); border: 1px solid #1A2244;
+    border-radius: 0.12in; padding: 0.3in;
+    display: grid; gap: 0.14in; align-content: start;
+  }
+  .solana .code-card .kicker {
+    font-family: "JetBrains Mono", monospace; font-size: 8.5pt; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase; color: #98A3C7;
+  }
+  .solana .code-card .cmd {
+    font-family: "JetBrains Mono", monospace; font-size: 16pt; font-weight: 600;
+    color: var(--brand);
+  }
+  .solana .code-card p { color: #CBD1EA; font-size: 12pt; line-height: 1.5; margin-top: 0.05in; }
+
+  /* ===== Slide 8: Path ===== */
+  .path .row { display: grid; grid-template-columns: 7in 5in; gap: 0.3in; margin-top: 0.25in; flex: 1; }
+  .path .why {
+    border: 1px solid var(--line); border-radius: 0.12in; padding: 0.3in;
+    background: var(--bg-soft); display: grid; gap: 0.14in; align-content: start;
+  }
+  .path .why .kicker {
+    font-family: "JetBrains Mono", monospace; font-size: 8.5pt; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--brand2);
+  }
+  .path .why h3 { font-size: 22pt; font-weight: 800; letter-spacing: -0.02em; }
+  .path .why p { font-size: 12pt; line-height: 1.5; color: var(--ink-soft); }
+  .path .closer {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 0.2in; padding-top: 0.18in; border-top: 1px solid var(--line);
+    font-family: "JetBrains Mono", monospace; font-size: 11pt; color: var(--muted);
+  }
+  .path .closer .name { color: var(--ink); font-weight: 700; font-size: 13pt; font-family: Inter, sans-serif; letter-spacing: -0.01em; }
+
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Cover -->
+<section class="slide cover">
+  <div class="topbar dark">
+    <span class="brand-mark">AP</span>
+    <span class="brand-name">AgentPass Guard</span>
+    <span class="num">COLOSSEUM FRONTIER · AI × SOLANA</span>
+  </div>
+  <div class="body">
+    <span class="pill"><span class="dot"></span>Pitch deck · 8 slides</span>
+    <h1 class="hero">Agents can now pay.<br><span class="grad">You decide <em>what</em><br>they're allowed to buy.</span></h1>
+    <p class="sub">Policy simulator and guard layer for AI agents using pay.sh / x402-style payments on Solana.</p>
+    <div class="cta-row">
+      <span class="cta">Run the demo →</span>
+      <span class="url">currentlycodinng.github.io/agentpass-guard</span>
+    </div>
+  </div>
+  <div class="grad-band"><div></div><div></div><div></div></div>
+</section>
+
+<!-- Slide 2: Problem -->
+<section class="slide problem">
+  <div class="topbar">
+    <span class="brand-mark">AP</span>
+    <span class="brand-name">AgentPass Guard</span>
+    <span class="kicker">The new problem</span>
+    <span class="num">02 / 08</span>
+  </div>
+  <div class="body">
+    <h1 class="title">Agents can pay.<br>Now humans need controls.</h1>
+    <p class="lead">Builders without a policy layer have two bad choices: approve every micro-payment by hand, or hand the agent unlimited credentials. Neither scales.</p>
+    <ul class="bullets">
+      <li>Pay.sh and x402 unlock agent-paid APIs on Solana.</li>
+      <li>Unrestricted agent wallets are unsafe.</li>
+      <li>Manual approval for every micro-payment kills autonomy.</li>
+      <li>Builders need to test budget, allowlist, threshold, and revocation before live spend.</li>
+    </ul>
+  </div>
+  <div class="foot">
+    <span>github.com/currentlycodinng/agentpass-guard</span>
+    <span>Colosseum Frontier · 2026</span>
+  </div>
+</section>
+
+<!-- Slide 3: The Product -->
+<section class="slide imgled">
+  <div class="topbar">
+    <span class="brand-mark">AP</span>
+    <span class="brand-name">AgentPass Guard</span>
+    <span class="kicker">The product</span>
+    <span class="num">03 / 08</span>
+  </div>
+  <div class="body">
+    <span class="cap-kicker">The wedge</span>
+    <h2 class="cap-title">Pay.sh and x402 give agents a checkout. We give builders the brakes.</h2>
+    <div class="frame"><img src="../assets/screenshots/02-how.png" alt=""></div>
+  </div>
+  <div class="foot">
+    <span>github.com/currentlycodinng/agentpass-guard</span>
+    <span>Colosseum Frontier · 2026</span>
+  </div>
+</section>
+
+<!-- Slide 4: Live Demo -->
+<section class="slide imgled">
+  <div class="topbar">
+    <span class="brand-mark">AP</span>
+    <span class="brand-name">AgentPass Guard</span>
+    <span class="kicker">Live demo</span>
+    <span class="num">04 / 08</span>
+  </div>
+  <div class="body">
+    <span class="cap-kicker">How it runs</span>
+    <h2 class="cap-title">Set a policy. Watch the agent get checked. Three actions, three traces.</h2>
+    <div class="frame"><img src="../assets/screenshots/03-demo.png" alt=""></div>
+  </div>
+  <div class="foot">
+    <span>github.com/currentlycodinng/agentpass-guard</span>
+    <span>Colosseum Frontier · 2026</span>
+  </div>
+</section>
+
+<!-- Slide 5: Three decisions -->
+<section class="slide three">
+  <div class="topbar">
+    <span class="brand-mark">AP</span>
+    <span class="brand-name">AgentPass Guard</span>
+    <span class="kicker">Three decisions</span>
+    <span class="num">05 / 08</span>
+  </div>
+  <div class="body">
+    <h1 class="title">Approved. Blocked. Paused for human.</h1>
+    <p class="lead">Each click runs the policy through five guardrail checks and produces an audit-grade decision.</p>
+    <div class="grid">
+      <div class="col green">
+        <div class="frame"><img src="../assets/screenshots/07-decision-approved.png" alt=""></div>
+        <div class="label">
+          <div class="label-kicker">0.008 USDC · Allowlisted</div>
+          <div class="label-title">Auto-approved</div>
+        </div>
+      </div>
+      <div class="col red">
+        <div class="frame"><img src="../assets/screenshots/08-decision-blocked.png" alt=""></div>
+        <div class="label">
+          <div class="label-kicker">Allowlist fail</div>
+          <div class="label-title">Blocked before settlement</div>
+        </div>
+      </div>
+      <div class="col amber">
+        <div class="frame"><img src="../assets/screenshots/09-decision-approval.png" alt=""></div>
+        <div class="label">
+          <div class="label-kicker">0.075 USDC · Above threshold</div>
+          <div class="label-title">Paused for human</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span>github.com/currentlycodinng/agentpass-guard</span>
+    <span>Colosseum Frontier · 2026</span>
+  </div>
+</section>
+
+<!-- Slide 6: Why Solana -->
+<section class="slide solana dark">
+  <div class="topbar dark">
+    <span class="brand-mark">AP</span>
+    <span class="brand-name">AgentPass Guard</span>
+    <span class="kicker">Why Solana</span>
+    <span class="num">06 / 08</span>
+  </div>
+  <div class="body">
+    <h1 class="title">Small, frequent, programmatic — with receipts.</h1>
+    <div class="row">
+      <ul class="bullets">
+        <li>Fast confirmation keeps agent workflows interactive.</li>
+        <li>Low fees make sub-cent API payments economically viable.</li>
+        <li>Wallet-native identities map cleanly to autonomous agents.</li>
+        <li>Memo program turns each settlement into an inspectable receipt.</li>
+      </ul>
+      <div class="code-card">
+        <span class="kicker">Devnet proof</span>
+        <span class="cmd">$ npm run devnet:demo</span>
+        <p>Creates a temp wallet, sends a tiny payment, attaches a Memo-program receipt, prints the explorer link. Falls back to a simulated receipt if the public faucet is rate-limited.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span>github.com/currentlycodinng/agentpass-guard</span>
+    <span>Colosseum Frontier · 2026</span>
+  </div>
+</section>
+
+<!-- Slide 7: Built so far -->
+<section class="slide imgled">
+  <div class="topbar">
+    <span class="brand-mark">AP</span>
+    <span class="brand-name">AgentPass Guard</span>
+    <span class="kicker">Built so far</span>
+    <span class="num">07 / 08</span>
+  </div>
+  <div class="body">
+    <span class="cap-kicker">What's shipping</span>
+    <h2 class="cap-title">Static app. No backend. Judges run it in 30 seconds.</h2>
+    <div class="frame"><img src="../assets/screenshots/04-receipts.png" alt=""></div>
+  </div>
+  <div class="foot">
+    <span>github.com/currentlycodinng/agentpass-guard</span>
+    <span>Colosseum Frontier · 2026</span>
+  </div>
+</section>
+
+<!-- Slide 8: Path -->
+<section class="slide path">
+  <div class="topbar">
+    <span class="brand-mark">AP</span>
+    <span class="brand-name">AgentPass Guard</span>
+    <span class="kicker">Path after Frontier</span>
+    <span class="num">08 / 08</span>
+  </div>
+  <div class="body">
+    <h1 class="title">From local simulator to production guardrail.</h1>
+    <div class="row">
+      <ul class="bullets">
+        <li>Land with AI builders and student teams using paid APIs.</li>
+        <li>Add SPL USDC settlement and pay.sh / x402 request parsing.</li>
+        <li>Add team approval workflows, anomaly alerts, and spend analytics.</li>
+        <li>Move policy checks into wallet middleware and server-side authorization.</li>
+      </ul>
+      <div class="why">
+        <span class="kicker">Why this can win</span>
+        <h3>Completes the rail.</h3>
+        <p>The problem is current. The demo is concrete. The Solana integration is real. The wedge does not fight the ecosystem — it completes it.</p>
+      </div>
+    </div>
+    <div class="closer">
+      <span class="name">AgentPass Guard</span>
+      <span>currentlycodinng.github.io/agentpass-guard</span>
+    </div>
+  </div>
+  <div class="grad-band" style="position:absolute;bottom:0;left:0;right:0;"><div></div><div></div><div></div></div>
+</section>
+
+</body>
+</html>
