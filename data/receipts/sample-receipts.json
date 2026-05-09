@@ -1,0 +1,26 @@
+[
+  {
+    "agent": "Research Agent",
+    "service": "Pay.sh Research API",
+    "amountUsdc": 0.008,
+    "decision": "Approved",
+    "reason": "Allowed service and below auto-approval threshold",
+    "receipt": "sim-7a31c91f"
+  },
+  {
+    "agent": "Research Agent",
+    "service": "Unapproved Scraping API",
+    "amountUsdc": 0.006,
+    "decision": "Blocked",
+    "reason": "Service is not in the allowlist",
+    "receipt": "not-settled"
+  },
+  {
+    "agent": "Research Agent",
+    "service": "Pay.sh BigQuery",
+    "amountUsdc": 0.075,
+    "decision": "Human approval needed",
+    "reason": "Allowed service but above auto-approval threshold",
+    "receipt": "not-settled"
+  }
+]

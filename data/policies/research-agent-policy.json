@@ -1,0 +1,14 @@
+{
+  "agentName": "Research Agent",
+  "network": "solana-devnet",
+  "dailyBudgetUsdc": 0.25,
+  "autoApprovalThresholdUsdc": 0.02,
+  "allowedServices": [
+    "pay-sh-research",
+    "pay-sh-bigquery",
+    "pay-sh-knowledge"
+  ],
+  "expiresInHours": 24,
+  "revocable": true,
+  "blockedByDefault": true
+}

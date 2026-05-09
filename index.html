@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AgentPass Guard is a local-first policy simulator and guard layer for AI agents paying for APIs on Solana."
+    />
+    <title>AgentPass Guard — Test agent payment policies before real spend</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <header class="site-nav">
+      <a class="brand" href="#top">
+        <span class="brand-mark">AP</span>
+        <span class="brand-name">AgentPass Guard</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#demo">Live demo</a>
+        <a href="#proof">Solana proof</a>
+        <a href="#submission">Submission</a>
+      </nav>
+      <a class="cta-button" href="#demo">Try the demo</a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-inner">
+          <span class="pill">Colosseum Frontier · AI × Solana</span>
+          <h1 class="hero-title">
+            Agents can now pay.<br />
+            <span class="grad">You decide what they're allowed to buy.</span>
+          </h1>
+          <p class="hero-sub">
+            AgentPass Guard is a policy simulator and guard layer for AI agents using
+            pay.sh / x402-style payments on Solana. Set the budget, the allowlist, the
+            approval threshold — then watch every paid action get checked against your
+            rules before a lamport leaves the wallet.
+          </p>
+          <div class="hero-cta">
+            <a class="cta-button primary" href="#demo">Run the demo →</a>
+            <a class="cta-button ghost" href="#how">See the wedge</a>
+          </div>
+          <div class="hero-stats">
+            <div><strong>5</strong><span>guardrail checks per action</span></div>
+            <div><strong>3</strong><span>scripted agent decisions</span></div>
+            <div><strong>0</strong><span>backend required</span></div>
+          </div>
+        </div>
+        <div class="hero-glow" aria-hidden="true"></div>
+      </section>
+
+      <section class="how" id="how">
+        <div class="section-head">
+          <span class="eyebrow">The wedge</span>
+          <h2>Pay.sh and x402 give agents a checkout. <br/>AgentPass Guard gives builders the brakes.</h2>
+        </div>
+        <div class="how-grid">
+          <article class="how-card">
+            <span class="how-num">01</span>
+            <h3>Without a policy layer</h3>
+            <p>You either approve every micro-payment by hand, or hand the agent unlimited wallet access. Neither scales.</p>
+          </article>
+          <article class="how-card highlight">
+            <span class="how-num">02</span>
+            <h3>With AgentPass Guard</h3>
+            <p>A human-defined pass: budget, allowlist, threshold, expiry, revocation. Every paid call is evaluated and explained before settlement.</p>
+          </article>
+          <article class="how-card">
+            <span class="how-num">03</span>
+            <h3>On Solana</h3>
+            <p>Approved actions settle on devnet with a Memo-program receipt. Cheap, fast, inspectable — the right rail for agent payments.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="demo-section" id="demo">
+        <div class="section-head">
+          <span class="eyebrow">Live demo</span>
+          <h2>Set a policy. Watch the agent get checked.</h2>
+          <p class="section-lead">
+            Three scripted actions — one auto-approves, one is blocked, one needs a human.
+            Every decision is shown with the exact guardrail trace.
+          </p>
+        </div>
+
+        <div class="demo-grid">
+          <section class="panel" id="policy">
+            <div class="panel-heading">
+              <span class="eyebrow">Step 1 · Human policy</span>
+              <h3>Research Agent Pass</h3>
+            </div>
+
+            <form class="policy-form" id="policy-form">
+              <label>
+                Agent name
+                <input id="agent-name" name="agentName" value="Research Agent" />
+              </label>
+
+              <div class="field-row">
+                <label>
+                  Daily budget
+                  <span class="input-affix">
+                    <input id="daily-budget" name="dailyBudget" type="number" step="0.01" value="0.25" />
+                    <span>USDC</span>
+                  </span>
+                </label>
+                <label>
+                  Auto-approve below
+                  <span class="input-affix">
+                    <input id="auto-threshold" name="autoThreshold" type="number" step="0.01" value="0.02" />
+                    <span>USDC</span>
+                  </span>
+                </label>
+              </div>
+
+              <fieldset class="service-fieldset">
+                <legend>Allowed services</legend>
+                <label class="check-row">
+                  <input name="allowedServices" type="checkbox" value="pay-sh-research" checked />
+                  <span>Pay.sh Research API</span>
+                </label>
+                <label class="check-row">
+                  <input name="allowedServices" type="checkbox" value="pay-sh-bigquery" checked />
+                  <span>Pay.sh BigQuery</span>
+                </label>
+                <label class="check-row">
+                  <input name="allowedServices" type="checkbox" value="pay-sh-knowledge" />
+                  <span>Pay.sh Knowledge Graph</span>
+                </label>
+              </fieldset>
+
+              <div class="field-row">
+                <label>
+                  Expires in
+                  <span class="input-affix">
+                    <input id="expires-hours" name="expiresHours" type="number" value="24" />
+                    <span>hours</span>
+                  </span>
+                </label>
+                <label class="toggle-row">
+                  <input id="revoked" name="revoked" type="checkbox" />
+                  <span>Revoked</span>
+                </label>
+              </div>
+            </form>
+
+            <div class="policy-summary" id="policy-summary"></div>
+            <div class="panel-actions">
+              <button class="secondary-button" id="export-policy" type="button">Export policy JSON</button>
+            </div>
+          </section>
+
+          <section class="panel runner-panel" id="runner">
+            <div class="panel-heading">
+              <span class="eyebrow">Step 2 · Scripted agent</span>
+              <h3>Try paid actions</h3>
+            </div>
+
+            <div class="action-list">
+              <button class="action-card" data-action="allowed">
+                <span class="action-tag tag-go">Should approve</span>
+                <span class="action-title">Allowed API call</span>
+                <span class="action-detail">Pay.sh Research API · 0.008 USDC</span>
+              </button>
+              <button class="action-card" data-action="blocked">
+                <span class="action-tag tag-stop">Should block</span>
+                <span class="action-title">Blocked tool</span>
+                <span class="action-detail">Unapproved scraping API · 0.006 USDC</span>
+              </button>
+              <button class="action-card" data-action="approval">
+                <span class="action-tag tag-warn">Needs approval</span>
+                <span class="action-title">High-cost call</span>
+                <span class="action-detail">BigQuery dataset · 0.075 USDC</span>
+              </button>
+            </div>
+
+            <div class="decision-box" id="decision-box">
+              <p class="label">Step 3 · Decision</p>
+              <p>Pick an action above to see the policy decision, the guardrail checks, the receipt, and the remaining budget.</p>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel receipt-panel" id="receipts">
+          <div class="panel-heading receipt-heading">
+            <div>
+              <span class="eyebrow">Audit trail</span>
+              <h3>Receipts</h3>
+            </div>
+            <div class="button-row">
+              <button class="secondary-button" id="export-receipts" type="button">Export receipts</button>
+              <button class="secondary-button" id="reset-demo" type="button">Reset demo</button>
+            </div>
+          </div>
+
+          <div class="receipt-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Agent</th>
+                  <th>Service</th>
+                  <th>Amount</th>
+                  <th>Decision</th>
+                  <th>Receipt</th>
+                </tr>
+              </thead>
+              <tbody id="receipt-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section class="proof-section" id="proof">
+        <div class="section-head">
+          <span class="eyebrow">Solana proof</span>
+          <h2>Approved actions can settle on devnet, with a memo-program receipt.</h2>
+        </div>
+        <div class="proof-grid">
+          <div class="proof-card">
+            <h3>What the prototype proves</h3>
+            <ul>
+              <li>A human-defined policy is evaluated <em>before</em> an agent can spend.</li>
+              <li>Every action produces an auditable decision record.</li>
+              <li>Builders can export the policy and receipt log as JSON.</li>
+              <li>Approved spend can be linked to a Solana devnet transaction.</li>
+            </ul>
+          </div>
+          <div class="proof-card devnet-card">
+            <span class="eyebrow">Optional devnet command</span>
+            <pre><code>npm run devnet:demo</code></pre>
+            <p>Creates a temporary devnet wallet, sends a tiny payment, attaches a receipt via the Solana Memo program, and prints an explorer link. Falls back to a simulated receipt if the public faucet is rate-limited.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="submission" id="submission">
+        <div class="section-head">
+          <span class="eyebrow">Submission</span>
+          <h2>Built for Colosseum Frontier — AI × Solana.</h2>
+          <p class="section-lead">Local-first. No backend. Static-deployable. Open source.</p>
+        </div>
+        <div class="submission-links">
+          <a class="link-card" href="https://github.com/" target="_blank" rel="noopener">
+            <span class="eyebrow">Code</span>
+            <strong>GitHub repo</strong>
+            <span>Static web app + Solana devnet script</span>
+          </a>
+          <a class="link-card" href="#demo">
+            <span class="eyebrow">Demo</span>
+            <strong>Live site</strong>
+            <span>This page — try the three scripted actions above</span>
+          </a>
+          <a class="link-card" href="https://docs.google.com/presentation/d/1FmRyTSevpSDiDhdgkVfr9Fgi6v8GZEhn82GuVPDoxLk/edit?usp=drivesdk" target="_blank" rel="noopener">
+            <span class="eyebrow">Deck</span>
+            <strong>Google Slides</strong>
+            <span>8-slide pitch deck</span>
+          </a>
+        </div>
+      </section>
+
+      <footer class="site-foot">
+        <span>AgentPass Guard · Colosseum Frontier 2026</span>
+        <span>Pay.sh / x402 · Solana · Memo program receipts</span>
+      </footer>
+    </main>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
