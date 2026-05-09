@@ -51,3 +51,40 @@ That's the prompt. They want to see whether they'd want to back you. Calm beats 
 ## If you go over 2:00
 
 Cut the second sentence of the "what you're building" paragraph (the one about pay.sh / x402). The previous sentence already implies it.
+
+---
+
+# Alternative: pitch video without your face
+
+Colosseum allows it ("nothing fancy required"), but you should know the trade-off: the prompt asks you to *introduce yourselves* and they want to judge *how you communicate*. With no face, all the weight goes to your voice. That's fine — many strong pitches are voice-over — as long as the audio is clear and confident.
+
+## Setup
+
+- **Visuals:** screen recording of the live site, slowly scrolling top to bottom OR holding still on the hero. Do NOT walk through the product (that's the demo video's job). Or use the static brand banner as a backdrop:
+  `https://currentlycodinng.github.io/agentpass-guard/assets/logo/logo-banner-dark-1600.png`
+- **Audio:** AirPods or any USB mic > built-in MacBook mic. Record in a quiet room, no echo.
+- **Tool:** QuickTime → Cmd+Shift+5 → Record Selected Portion (with mic enabled), OR Loom screen-only with mic on.
+
+## Visual options, ranked
+
+1. **Hero of the live site, full screen, no mouse movement.** Most professional. Same brand language as everything else.
+2. **The dark logo banner held for the full 2 minutes.** Cleanest, most graphic-design-y. Lets your voice carry the whole video.
+3. **Slow vertical scroll through the live site.** Natural rhythm but slightly distracting.
+
+Pick #1 or #2. Don't pick a still photo of yourself — that's worse than your real face on camera.
+
+## Script (use the same words as the on-camera version)
+
+The exact lines above (0:00–2:00) work word-for-word. The audio carries the meaning; the visuals are wallpaper.
+
+## Why audio matters more here
+
+Without your face, judges form their impression entirely from how you sound. Three things to nail:
+
+- **Pace.** Slow enough to follow, fast enough to feel awake. ~150 words/min.
+- **Energy delta.** Slightly higher on the opener and the closer, calmer in the middle.
+- **Clean takes.** Re-record in full rather than splicing. Splices in voice-only video are obvious and hurt credibility more than imperfect pacing.
+
+## Final note
+
+If you can do an on-camera version, do it. Two minutes of you talking honestly beats two minutes of polished voice-over for this prompt specifically. But if camera-on isn't going to happen, the voice-over option is fine — just make the audio count.
