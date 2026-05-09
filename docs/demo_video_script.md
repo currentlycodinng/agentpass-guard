@@ -9,8 +9,8 @@
 - Open `https://currentlycodinng.github.io/agentpass-guard/` full screen.
 - Click **Reset demo**. The Receipts table should say "No actions yet."
 - Form set to defaults: budget 0.25, threshold 0.02, "Pay.sh Research API" + "Pay.sh BigQuery" checked, expiry 24h, Revoked unchecked.
-- Open a Terminal in `~/agentpass-guard` for the optional devnet beat.
 - Mic level checked. Notifications off.
+- **Everything happens on the website. No terminal, no slides, no code editor.**
 
 ---
 
@@ -48,21 +48,19 @@
 
 > "Every decision lands in the audit trail. Builders can export the policy and the receipts as JSON, so they can test their agent against this guard before connecting any real spend."
 
-## 1:30 — 2:15 · Solana proof (optional but strong)
+## 1:30 — 2:00 · Solana proof — on the website only
 
-*(Switch to the terminal.)*
+*(Stay on the live site. Scroll to the dark "Solana proof" section.)*
 
-> "Approved actions can settle on Solana devnet. The included script creates a temp wallet, sends a tiny payment, and attaches a Memo-program receipt."
+> "Approved actions can settle on Solana devnet with a Memo-program receipt. Low fees, fast confirmation, and an inspectable trail — that's why agent payments belong on Solana."
 
-*(Run `npm run devnet:demo` — or `node scripts/devnet-demo.mjs --simulate` if you don't have a funded wallet ready. Hold on the explorer URL or simulated receipt for ~3 seconds.)*
+> ⚠️ **Don't switch to a terminal.** Colosseum's prompt explicitly says "not a code walkthrough." The receipts table on the website already shows the proof. Keep the camera on the product.
 
-> "Solana fits because agent payments are small, frequent, and need receipts. Low fees and fast confirmation make sub-cent payments practical, and the Memo program makes every settlement inspectable."
+## 2:00 — 2:30 · Closing
 
-## 2:15 — 2:45 · Closing
+*(Scroll to the submission section at the bottom of the site.)*
 
-*(Switch back to the live site, scroll to the submission section.)*
-
-> "Code, demo, and deck are linked here. AgentPass Guard isn't trying to replace pay.sh or x402 — those rails let agents pay. AgentPass is the policy and audit layer above them. Thanks for watching."
+> "AgentPass Guard isn't trying to replace pay.sh or x402 — those rails let agents pay. AgentPass is the policy and audit layer above them. Code, deck, and live demo are linked here. Thanks for watching."
 
 ---
 
@@ -78,4 +76,4 @@
 - Keep the cursor moving but not jittery. Pause for 1 second on each decision panel.
 - Speak ~150 words/min — natural pace, not rushed.
 - Trim silence at the start/end before uploading.
-- If it's >3:00, drop the Solana proof beat (1:30–2:15) — the on-site decision panel already implies the receipts.
+- If it's >3:00, shorten the policy-form intro (0:30–0:50) and skim through it visually instead of describing every field.
